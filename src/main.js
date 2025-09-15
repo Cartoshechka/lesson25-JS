@@ -18,12 +18,15 @@ console.log('#8. JavaScript homework example file')
  */
 
 function createDomElement(tagName, textContent, container) {
-  // code here
+  const element = document.createElement(tagName)
+  element.textContent = textContent
+  container.appendChild(element)
+  return element
 }
 
 // Демонстрація використання функції
-// const container = document.body // В якості прикладу використовуємо body як контейнер
-// console.log(createDomElement('p', 'This paragraph has been added to the specified container.', container))
+const container = document.body // В якості прикладу використовуємо body як контейнер
+console.log(createDomElement('p', 'This paragraph has been added to the specified container.', container))
 
 /*
  * #2
@@ -42,11 +45,16 @@ function createDomElement(tagName, textContent, container) {
 // setUserInfoCookie.js
 
 function setUserInfoCookie(key, value) {
-  // code here
+  const cookieValue = `${key}=${value}`
+  const encodedValue = encodeURIComponent(cookieValue);
+  const expires = new Date();
+  expires.setSeconds(expires.getSeconds() + 10);
+  document.cookie = `userInfo=${encodedValue}; expires=${expires}; path=/`
+  console.log(`Cookie успешно установлен: userInfo=${encodedValue}`);
 }
 
 // Демонстрація використання функції
-// setUserInfoCookie('language', 'en');
+setUserInfoCookie('language', 'en');
 
 /*
  * #3
@@ -68,16 +76,20 @@ function setUserInfoCookie(key, value) {
  * 4. Повертає значення отримане з sessionStorage.
  */
 
+
 function saveUserInfo(key, value) {
-  // code here
+  sessionStorage.setItem(key, value);
+  console.log(`Saved ${key}: ${value}`);
 }
 
 function getUserInfo(key) {
-  // code here
+  const value = sessionStorage.getItem(key);
+  console.log(`Retrieved ${key}: ${value}`);
+  return value;
 }
 
 // Демонстрація використання функцій
-// saveUserInfo('username', 'JohnDoe');
-// console.log(getUserInfo('username')); // Виведе: JohnDoe
+saveUserInfo('username', 'JohnDoe');
+console.log(getUserInfo('username')); // Виведе: JohnDoe
 
 export { createDomElement, setUserInfoCookie, saveUserInfo, getUserInfo }
